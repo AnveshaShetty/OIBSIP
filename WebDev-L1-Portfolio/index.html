@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anvesha U Shetty — Portfolio</title>
+<meta name="description" content="Anvesha U Shetty — Computer Science &amp; Design student, full-stack developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAF8;
+    --bg-panel: #F0F5F3;
+    --ink: #12211D;
+    --ink-soft: #4B5C57;
+    --teal: #0E7C74;
+    --teal-deep: #0A5C56;
+    --coral: #FF6B4A;
+    --line: #DCE6E2;
+    --card: #FFFFFF;
+    --radius: 18px;
+    --max: 1120px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.02em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--coral); color:#fff; }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 32px; }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(250,250,248,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:1.15rem;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{ width:8px; height:8px; border-radius:50%; background:var(--coral); }
+  .navlinks{ display:flex; gap:8px; align-items:center; }
+  .navlinks a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    padding:8px 14px;
+    border-radius:8px;
+    transition:all .2s ease;
+  }
+  .navlinks a:hover, .navlinks a.active{
+    color:var(--teal-deep);
+    background:var(--bg-panel);
+  }
+  .navlinks .prompt{ color:var(--coral); }
+  #navToggle{ display:none; }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ padding:120px 0 40px; }
+  #hero{ padding-top:170px; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    color:var(--coral);
+    margin-bottom:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:'$'; color:var(--teal); }
+
+  /* ---------- HERO ---------- */
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr;
+    gap:48px; align-items:center;
+  }
+  #hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.2rem);
+    font-weight:700; line-height:1.04;
+    margin-bottom:18px;
+  }
+  #hero h1 span{ color:var(--teal); }
+  .role{
+    font-family:'JetBrains Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-size:0.9rem;
+    color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .tagline{
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:520px;
+    margin-bottom:34px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.9rem;
+    padding:13px 24px;
+    border-radius:10px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:all .2s ease;
+    border:1.5px solid transparent;
+  }
+  .btn-primary{ background:var(--teal); color:#fff; }
+  .btn-primary:hover{ background:var(--teal-deep); transform:translateY(-2px); }
+  .btn-outline{ border-color:var(--line); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--teal); color:var(--teal-deep); transform:translateY(-2px); }
+
+  /* ---------- PHOTO ---------- */
+  .photo-wrap{ position:relative; justify-self:center; }
+  .photo-wrap::before{
+    content:'';
+    position:absolute;
+    inset:-18px;
+    background:var(--bg-panel);
+    border-radius:50%;
+    z-index:0;
+  }
+  .photo-wrap img{
+    position:relative; z-index:1;
+    width:300px; height:300px;
+    object-fit:cover;
+    border-radius:50%;
+  }
+  .photo-wrap .accent-dot{
+    position:absolute; z-index:2;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--coral);
+    bottom:6px; right:20px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start;
+  }
+  #about h2{ font-size:2.1rem; margin-bottom:20px; }
+  #about p{ color:var(--ink-soft); font-size:1.03rem; max-width:560px; }
+  .facts{
+    background:var(--bg-panel);
+    border-radius:var(--radius);
+    padding:28px;
+    border:1px solid var(--line);
+  }
+  .fact{ display:flex; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); }
+  .fact:last-child{ border-bottom:none; }
+  .fact .k{ font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--teal-deep); min-width:88px; text-transform:uppercase; letter-spacing:0.05em; padding-top:2px; }
+  .fact .v{ font-size:0.95rem; color:var(--ink); }
+
+  /* ---------- SKILLS ---------- */
+  #skills h2{ font-size:2.1rem; margin-bottom:28px; }
+  .skill-grid{ display:flex; flex-wrap:wrap; gap:12px; }
+  .skill-chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.92rem;
+    padding:12px 20px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    background:var(--card);
+    color:var(--ink);
+    transition:all .2s ease;
+    cursor:default;
+  }
+  .skill-chip:hover{
+    border-color:var(--teal);
+    background:var(--teal);
+    color:#fff;
+    transform:translateY(-3px);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  #projects h2{ font-size:2.1rem; margin-bottom:28px; }
+  .project-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;
+  }
+  .project-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:all .25s ease;
+  }
+  .project-card:hover{
+    border-color:var(--teal);
+    box-shadow:0 12px 28px -14px rgba(14,124,116,0.35);
+    transform:translateY(-4px);
+  }
+  .project-card h3{ font-size:1.25rem; }
+  .project-card p{ color:var(--ink-soft); font-size:0.95rem; flex-grow:1; }
+  .project-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal-deep);
+    background:var(--bg-panel);
+    padding:8px 12px;
+    border-radius:6px;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .project-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    color:var(--teal-deep);
+    width:fit-content;
+  }
+  .project-link:hover{ color:var(--coral); }
+  .project-link svg{ width:14px; height:14px; }
+  .featured-tag{
+    position:absolute; top:-11px; left:24px;
+    background:var(--coral); color:#fff;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em;
+    padding:4px 10px; border-radius:6px;
+  }
+  .project-card{ position:relative; }
+
+  /* ---------- CONTACT ---------- */
+  #contact{ padding-top: 120px; padding-bottom:100px; }
+  .contact-panel{
+    margin-top:20px;
+    background:var(--teal-deep);
+    color:#fff;
+    border-radius:24px;
+    padding:56px 48px;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  .contact-panel::after{
+    content:'';
+    position:absolute; right:-60px; top:-60px;
+    width:200px; height:200px; border-radius:50%;
+    background:var(--coral); opacity:0.18;
+  }
+  .contact-panel h2{ font-size:2rem; color:#fff; margin-bottom:14px; }
+  .contact-panel p{ color:#CFEAE6; max-width:420px; }
+  .contact-links{ display:flex; flex-direction:column; gap:14px; position:relative; z-index:1; }
+  .contact-links a{
+    display:flex; align-items:center; gap:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.95rem;
+    background:rgba(255,255,255,0.08);
+    padding:14px 18px;
+    border-radius:10px;
+    transition:all .2s ease;
+  }
+  .contact-links a:hover{ background:rgba(255,255,255,0.18); transform:translateX(4px); }
+  .contact-links svg{ width:18px; height:18px; flex-shrink:0; }
+
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px){
+    nav.wrap{ height:auto; padding-top:10px; padding-bottom:10px; flex-wrap:wrap; gap:8px; row-gap:6px; }
+    .navlinks{
+      width:100%; overflow-x:auto; justify-content:flex-start;
+      gap:4px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    }
+    .navlinks::-webkit-scrollbar{ display:none; }
+    .navlinks a{ font-size:0.78rem; padding:7px 11px; white-space:nowrap; flex-shrink:0; }
+    #hero{ padding-top:150px; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .photo-wrap{ order:-1; }
+    .photo-wrap img, .photo-wrap::before{ width:220px; height:250px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .contact-panel{ grid-template-columns:1fr; padding:40px 28px; }
+    section{ padding:90px 0 20px; }
+    .wrap{ padding:0 20px; }
+  }
+
+  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="dot"></span>Anvesha<span class="mono" style="color:var(--ink-soft); font-weight:400;">.dev</span></div>
+    <div class="navlinks" id="navlinks">
+      <a href="#about"><span class="prompt">$</span> About</a>
+      <a href="#skills"><span class="prompt">$</span> Skills</a>
+      <a href="#projects"><span class="prompt">$</span> Projects</a>
+      <a href="#contact"><span class="prompt">$</span> Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">whoami</div>
+        <h1>Anvesha U Shetty</h1>
+        <div class="role">Engineering Student · Computer Science &amp; Design</div>
+        <p class="tagline">I build functional, well-crafted web applications and enjoy turning ideas into working software. Currently deep in full-stack development, one project (and one #30DaysOfPython commit) at a time.</p>
+        <div class="cta-row">
+          <a href="#projects" class="btn btn-primary">View Projects →</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+      <div class="photo-wrap">
+        <img src="profile.png" alt="Portrait of Anvesha U Shetty">
+        <div class="accent-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="wrap reveal">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">about</div>
+        <h2>About Me</h2>
+        <p>I'm a Computer Science and Design Engineering student with a strong interest in software development, web technologies, and emerging tech. I enjoy turning ideas into functional applications while continuously learning and improving my technical skills. Right now I'm focused on frontend and full-stack development, building real-world projects along the way.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">College</div><div class="v">Canara Engineering College</div></div>
+        <div class="fact"><div class="k">Focus</div><div class="v">Frontend &amp; Full-Stack Development</div></div>
+        <div class="fact"><div class="k">Achievement</div><div class="v">Completed the #30DaysOfPython challenge</div></div>
+        <div class="fact"><div class="k">Based in</div><div class="v">Mangaluru, Karnataka</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="wrap reveal">
+    <div class="eyebrow">skills</div>
+    <h2>Skills</h2>
+    <div class="skill-grid">
+      <div class="skill-chip">Python</div>
+      <div class="skill-chip">HTML5</div>
+      <div class="skill-chip">CSS3</div>
+      <div class="skill-chip">JavaScript</div>
+      <div class="skill-chip">MongoDB</div>
+      <div class="skill-chip">C</div>
+      <div class="skill-chip">Responsive Web Design</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="wrap reveal">
+    <div class="eyebrow">projects</div>
+    <h2>Projects</h2>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <span class="featured-tag">Completed</span>
+        <h3>30 Days of Python</h3>
+        <p>A self-directed, day-by-day Python challenge completed end-to-end — covering core language fundamentals through to backend and data science tooling, including a full Flask REST API with MongoDB Atlas (CRUD operations), and data work with NumPy, SciPy, Matplotlib, and Seaborn.</p>
+        <div class="project-meta">$ git clone 30Days_Python.git</div>
+        <a class="project-link" href="https://github.com/AnveshaShetty/30Days_Python.git" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h3>Password Generator</h3>
+        <p>A lightweight web tool that generates strong, randomized passwords on the fly, with configurable options for length and character sets to suit different security needs.</p>
+        <div class="project-meta">$ git clone Password-Generator.git</div>
+        <a class="project-link" href="https://github.com/AnveshaShetty/Password-Generator" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h3>QR Code Generator</h3>
+        <p>A simple browser-based utility that converts any text or URL input into a scannable QR code instantly, built with a focus on a clean and intuitive interface.</p>
+        <div class="project-meta">$ git clone QR-Code-Generator.git</div>
+        <a class="project-link" href="https://github.com/AnveshaShetty/QR-Code-Generator" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h3>To-Do Web App</h3>
+        <p>A task management web app for creating, tracking, and organizing daily to-dos, with an emphasis on a responsive layout that works smoothly across devices.</p>
+        <div class="project-meta">$ git clone To-Do-WebApp.git</div>
+        <a class="project-link" href="https://github.com/AnveshaShetty/To-Do-WebApp" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          View on GitHub
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="wrap reveal">
+    <div class="contact-panel">
+      <div>
+        <div class="eyebrow" style="color:#8FE0D6;">contact</div>
+        <h2>Let's Connect</h2>
+        <p class="mono" style="color:#fff; font-size:1rem; margin-bottom:10px;">Anvesha U Shetty</p>
+        <p>Open to opportunities, collaborations, or just a conversation about code. Reach out — I'd love to hear from you.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:shettyanvesha11@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg>
+          shettyanvesha11@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/anvesha-shetty-45321732b/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1s2.5 1.12 2.5 2.5zM.24 8.24h4.48V23H.24V8.24zM8.24 8.24h4.29v2.01h.06c.6-1.13 2.06-2.32 4.24-2.32 4.53 0 5.37 2.98 5.37 6.86V23h-4.48v-6.44c0-1.54-.03-3.52-2.15-3.52-2.15 0-2.48 1.68-2.48 3.41V23H8.24V8.24z"/></svg>
+          Anvesha Shetty
+        </a>
+        <a href="https://github.com/AnveshaShetty" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          Anvesha Shetty
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Designed &amp; built by Anvesha U Shetty ·</div>
+</footer>
+
+<script>
+
+  // smooth-scroll offset handled by CSS scroll-behavior; active nav link highlight
+  const links = document.querySelectorAll('.navlinks a');
+  const sections = document.querySelectorAll('main section[id]');
+  const setActive = () => {
+    let current = '';
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120 && rect.bottom > 120) current = sec.id;
+    });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
