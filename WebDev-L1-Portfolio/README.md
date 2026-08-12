@@ -4,7 +4,7 @@ A responsive personal portfolio website showcasing my skills, projects, interest
 
 ## 🔗 Live Demo
 
-**Live Site:** 
+**Live Site:**  https://anvesha-portfolio.netlify.app
 
 ## 📸 Preview
 
