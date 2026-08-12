@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thermae — Temperature Converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scale-marks" aria-hidden="true"></div>
+
+<main class="panel">
+
+  <header class="panel__header">
+    <h1>Thermae</h1>
+    <p class="subtitle">Enter a value, choose its unit and read the conversion across Celsius, Fahrenheit and Kelvin.</p>
+  </header>
+
+  <div class="stage">
+
+    <div class="thermo-wrap">
+      <svg class="thermo" viewBox="0 0 120 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Thermometer visualization">
+        <defs>
+          <clipPath id="tubeClip">
+            <rect x="42" y="18" width="36" height="270" rx="18" />
+          </clipPath>
+        </defs>
+        <!-- tube outline -->
+        <rect class="thermo-tube" x="42" y="18" width="36" height="270" rx="18" />
+        <!-- fill (height set by JS) -->
+        <rect id="thermoFill" class="thermo-fill" x="42" y="288" width="36" height="0" clip-path="url(#tubeClip)" />
+        <!-- tick marks -->
+        <g class="thermo-ticks" id="thermoTicks"></g>
+        <!-- bulb -->
+        <circle class="thermo-bulb-ring" cx="60" cy="312" r="34" />
+        <circle id="thermoBulb" class="thermo-bulb" cx="60" cy="312" r="26" />
+      </svg>
+      <div class="thermo-caption">
+        <span id="thermoState">Awaiting input</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="field">
+        <label for="tempInput">Temperature value</label>
+        <input type="text" id="tempInput" inputmode="decimal" autocomplete="off" placeholder="e.g. 36.6" aria-describedby="fieldMsg">
+      </div>
+
+      <div class="field">
+        <label for="unitSelect">Input unit</label>
+        <select id="unitSelect">
+          <option value="C" selected>Celsius (°C)</option>
+          <option value="F">Fahrenheit (°F)</option>
+          <option value="K">Kelvin (K)</option>
+        </select>
+      </div>
+
+      <p id="fieldMsg" class="field-msg" role="alert" hidden></p>
+
+      <button id="convertBtn" type="button" disabled>Convert</button>
+    </div>
+
+  </div>
+
+  <section class="readouts" aria-label="Converted values">
+    <div class="readout-tile" data-unit="C" id="tileC">
+      <span class="readout-label">Celsius</span>
+      <span class="readout-value" id="valC">—</span>
+    </div>
+    <div class="readout-tile" data-unit="F" id="tileF">
+      <span class="readout-label">Fahrenheit</span>
+      <span class="readout-value" id="valF">—</span>
+    </div>
+    <div class="readout-tile" data-unit="K" id="tileK">
+      <span class="readout-label">Kelvin</span>
+      <span class="readout-value" id="valK">—</span>
+    </div>
+  </section>
+
+  <p id="confirmMsg" class="confirm-msg" hidden></p>
+
+  <footer class="panel__footer">
+    <span>Live preview updates as you type.</span>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
